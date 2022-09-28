@@ -64,31 +64,7 @@ class Author(Resource):
         else:
             return {'message': "book with author is not present"}
 
-    @jwt_required()
-    def put(self, author):
-        book = BookModel.find_by_author(author)
-        
-        data = Author.parser.parse_args()
-        print('data =', data)
-       
-        if book:
-            if data['title']:
-                book.title = data['title']
-            if data['image']:    
-                book.image = data['image']
-            if data['minutes']:    
-                book.minutes = data['minutes']
-            if data['reads']:    
-                book.reads = data['reads']
-            if data['type']:    
-                book.type = data['type']
-            if data['status']:    
-                book.status = data['status']   
-            book.commit_db()
-            return book.json()
-        else:
-            return {'msg': 'A book with author does not exists'}
-
+    
 
 class BookId(Resource):
     parser = reqparse.RequestParser()
